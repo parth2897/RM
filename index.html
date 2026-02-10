@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Future RM?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #003a8f, #0066cc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      color: white;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      margin-bottom: 25px;
+    }
+
+    .buttons {
+      position: relative;
+      width: 90%;
+      max-width: 520px;
+      height: 220px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.08);
+      border-radius: 20px;
+    }
+
+    button {
+      position: absolute;
+      padding: 14px 34px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.2s ease;
+    }
+
+    #yesBtn {
+      background-color: #ffffff;
+      color: #003a8f;
+      left: 50%;
+      top: 60%;
+      transform: translateX(-50%);
+      font-weight: 600;
+    }
+
+    #noBtn {
+      background-color: #ffdddd;
+      color: #003a8f;
+      left: 65%;
+      top: 60%;
+    }
+
+    .final {
+      display: none;
+    }
+
+    .final h1 {
+      font-size: 3rem;
+    }
+
+    .final p {
+      font-size: 1.3rem;
+      margin-top: 15px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MAIN SCREEN -->
+  <div class="container" id="main">
+    <h1>Will you be my RM at HDFC Bank? 😄</h1>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 😌</button>
+      <button id="noBtn">No 🙈</button>
+    </div>
+  </div>
+
+  <!-- FINAL SCREEN -->
+  <div class="container final" id="final">
+    <h1>Congratulations! You’re hired 🎉</h1>
+    <p>
+      RM duties include:<br>
+      ✔ Managing my finances 💸<br>
+      ✔ Guiding my investments 📈<br>
+      ✔ Occasional coffee meetings ☕😉
+    </p>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const main = document.getElementById("main");
+    const final = document.getElementById("final");
+    const container = document.querySelector(".buttons");
+
+    let yesScale = 1;
+
+    noBtn.addEventListener("mouseenter", () => {
+      const containerRect = container.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = containerRect.width - btnRect.width;
+      const maxY = containerRect.height - btnRect.height;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+
+      yesScale += 0.12;
+      yesBtn.style.transform = `translateX(-50%) scale(${yesScale})`;
+    });
+
+    yesBtn.addEventListener("click", () => {
+      main.style.display = "none";
+      final.style.display = "block";
+    });
+  </script>
+
+</body>
+</html>
