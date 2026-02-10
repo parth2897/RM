@@ -1,143 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Future RM?</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Will You Be My RM?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      height: 100vh;
       margin: 0;
-      background: linear-gradient(135deg, #003a8f, #0066cc);
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
+      background: linear-gradient(135deg, #003a8f, #0066cc);
+      font-family: Arial, sans-serif;
     }
 
     .container {
       text-align: center;
       color: white;
-      width: 100%;
     }
 
     h1 {
-      font-size: 2.4rem;
-      margin-bottom: 25px;
+      font-size: 2.2rem;
+      margin-bottom: 20px;
     }
 
-    .buttons {
+    .box {
       position: relative;
-      width: 90%;
-      max-width: 520px;
+      width: 350px;
       height: 220px;
-      margin: 0 auto;
-      background: rgba(255,255,255,0.08);
-      border-radius: 20px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 16px;
+      margin: auto;
     }
 
     button {
       position: absolute;
-      padding: 14px 34px;
-      font-size: 1.1rem;
+      padding: 12px 26px;
+      font-size: 1rem;
       border: none;
-      border-radius: 30px;
+      border-radius: 25px;
       cursor: pointer;
-      user-select: none;
-      transition: transform 0.2s ease;
     }
 
-    #yesBtn {
-      background-color: #ffffff;
+    #yes {
+      background: white;
       color: #003a8f;
-      left: 50%;
-      top: 60%;
-      transform: translateX(-50%);
-      font-weight: 600;
+      left: 110px;
+      top: 140px;
     }
 
-    #noBtn {
-      background-color: #ffdddd;
+    #no {
+      background: #ffdede;
       color: #003a8f;
-      left: 65%;
-      top: 60%;
+      left: 200px;
+      top: 140px;
     }
 
     .final {
       display: none;
     }
-
-    .final h1 {
-      font-size: 3rem;
-    }
-
-    .final p {
-      font-size: 1.3rem;
-      margin-top: 15px;
-      line-height: 1.6;
-    }
   </style>
 </head>
 <body>
 
-  <!-- MAIN SCREEN -->
-  <div class="container" id="main">
-    <h1>Khooshboo, will you be my RM at HDFC Bank? 😄</h1>
+<div class="container" id="start">
+  <h1>Khushboo, will you be my RM at HDFC Bank? 😄</h1>
 
-    <div class="buttons">
-      <button id="yesBtn">Yes 😌</button>
-      <button id="noBtn">No 🙈</button>
-    </div>
+  <div class="box">
+    <button id="yes">Yes 😌</button>
+    <button id="no">No 🙈</button>
   </div>
+</div>
 
-  <!-- FINAL SCREEN -->
-  <div class="container final" id="final">
-    <h1>Congratulations! You’re hired 🎉</h1>
-    <p>
-      RM duties include:<br>
-      ✔ Managing my finances 💸<br>
-      ✔ Guiding my investments 📈<br>
-      ✔ Occasional coffee meetings ☕😉
-    </p>
-  </div>
+<div class="container final" id="end">
+  <h1>You’re hired 🎉</h1>
+  <p>First duty: manage my money & coffee ☕😉</p>
+</div>
 
-  <script>
-    const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
-    const main = document.getElementById("main");
-    const final = document.getElementById("final");
-    const container = document.querySelector(".buttons");
+<script>
+  const noBtn = document.getElementById("no");
+  const yesBtn = document.getElementById("yes");
+  const start = document.getElementById("start");
+  const end = document.getElementById("end");
 
-    let yesScale = 1;
+  let scale = 1;
+  let index = 0;
 
-    noBtn.addEventListener("mouseenter", () => {
-      const containerRect = container.getBoundingClientRect();
-      const btnRect = noBtn.getBoundingClientRect();
+  const safeSpots = [
+    { left: "20px", top: "20px" },
+    { left: "240px", top: "20px" },
+    { left: "20px", top: "120px" },
+    { left: "240px", top: "120px" },
+    { left: "130px", top: "60px" }
+  ];
 
-      const maxX = containerRect.width - btnRect.width;
-      const maxY = containerRect.height - btnRect.height;
+  noBtn.onmouseover = () => {
+    index = (index + 1) % safeSpots.length;
+    noBtn.style.left = safeSpots[index].left;
+    noBtn.style.top = safeSpots[index].top;
 
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
+    scale += 0.2;
+    yesBtn.style.transform = `scale(${scale})`;
+  };
 
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top = `${y}px`;
-
-      yesScale += 0.12;
-      yesBtn.style.transform = `translateX(-50%) scale(${yesScale})`;
-    });
-
-    yesBtn.addEventListener("click", () => {
-      main.style.display = "none";
-      final.style.display = "block";
-    });
-  </script>
+  yesBtn.onclick = () => {
+    start.style.display = "none";
+    end.style.display = "block";
+  };
+</script>
 
 </body>
 </html>
